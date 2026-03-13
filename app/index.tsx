@@ -17,7 +17,7 @@ import { db, initDB } from "../database";
 
 type Programa = { codigo: string; nombre: string };
 
-export default function ProgramasScreen() {
+export default function Programas() {
   const router = useRouter();
   const [programas, setProgramas] = useState<Programa[]>([]);
   const [codigo, setCodigo] = useState("");
@@ -83,16 +83,33 @@ export default function ProgramasScreen() {
   };
 
   const ejecutarEliminacion = () => {
-    if (codigoAEliminar) {
-        db.runSync('DELETE FROM programas WHERE codigo = ?', [codigoAEliminar]);
-        cargarProgramas();
+   if (codigoAEliminar) {
+      try {
+        const resultado = db.getFirstSync<{ total: number }>(
+          "SELECT COUNT(*) as total FROM estudiantes WHERE programa_cod = ?",
+          [codigoAEliminar]
+        );
+
+        if (resultado && resultado.total > 0) {
+          Alert.alert(
+            "Error",
+            `No se puede eliminar el programa porque tiene ${resultado.total} estudiante(s) registrado(s). Elimina primero a los estudiantes.`
+          );
+        } else {
+          db.runSync('DELETE FROM programas WHERE codigo = ?', [codigoAEliminar]);
+          cargarProgramas();
+        }
+      } catch (error) {
+        console.error(error);
+        Alert.alert("Error", "Ocurrió un error.");
+      }
     }
     setConfirmarVisible(false);
     setCodigoAEliminar(null);
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.Area}>
       <View style={styles.container}>
         <View style={styles.headerCentrado}>
           <Text style={styles.titleCentrado}>Gestión de Programas</Text>
@@ -235,7 +252,7 @@ export default function ProgramasScreen() {
 
 
 const styles = StyleSheet.create({
-  safeArea: {
+  Area: {
     flex: 1,
     backgroundColor: "#e9e7e7",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
