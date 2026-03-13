@@ -1,18 +1,18 @@
+import { useRouter } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
-  View,
+  Alert,
+  FlatList,
+  Modal,
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
-  FlatList,
-  StyleSheet,
-  Alert,
   TouchableOpacity,
-  SafeAreaView,
-  Platform,
-  StatusBar,
-  Modal,
+  View,
 } from "react-native";
-import { useRouter } from "expo-router";
 import { db, initDB } from "../database";
 
 type Programa = { codigo: string; nombre: string };
@@ -122,7 +122,7 @@ export default function Programas() {
             setModalVisible(true);
           }}
         >
-          <Text style={styles.textoBotonBlanco}>Crear Nuevo Programa</Text>
+          <Text style={styles.textoBotonNegro}>Crear Nuevo Programa</Text>
         </TouchableOpacity>
 
         <TextInput
@@ -160,7 +160,7 @@ export default function Programas() {
                     })
                   }
                 >
-                  <Text style={styles.textoBotonRojoSm}>Ver Estudiantes</Text>
+                  <Text style={styles.textoBotonRojoSm}>Estudiantes</Text>
                 </TouchableOpacity>
               </View>
 
@@ -254,7 +254,7 @@ export default function Programas() {
 const styles = StyleSheet.create({
   Area: {
     flex: 1,
-    backgroundColor: "#e9e7e7",
+    backgroundColor: "#2a2525",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   container: { flex: 1, padding: 25 },
@@ -270,17 +270,25 @@ const styles = StyleSheet.create({
   titleCentrado: {
     fontSize: 22,
     fontWeight: "bold",
-    color: "#222",
+    color: "#ffffff",
     textAlign: "center",
   },
 
   // Botones Superiores
   botonCrearPrincipal: {
-    backgroundColor: "#c49b14",
+    backgroundColor: "#e2f0b2",
     padding: 15,
+    borderBottomWidth: 1,
+    borderBottomColor: "#7d7171",
     borderRadius: 10,
     alignItems: "center",
     marginBottom: 15,
+  },
+
+  textoBotonNegro: { 
+    color: "#000000", 
+    fontWeight: "bold",
+    fontSize: 17,
   },
   textoBotonBlanco: { 
     color: "#FFF", 
@@ -293,7 +301,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 10,
   },
-  textoBotonRojoSm: { color: "#C4142B", fontWeight: "bold", fontSize: 13 },
+  textoBotonRojoSm: { color: "#100f10", fontWeight: "bold", fontSize: 13 },
 
   // Buscador
   searchInput: {
@@ -343,15 +351,15 @@ const styles = StyleSheet.create({
 
   // Botones
   botonVer: {
-    backgroundColor: "#f0fffe",
+    backgroundColor: "#b2e1af",
     paddingVertical: 6,
     paddingHorizontal: 10,
     borderRadius: 6,
     borderWidth: 1,
-    borderColor: "#7dc8eb",
+    borderColor: "#6dd15c",
   },
   btnIconoEditar: { 
-    backgroundColor: "#E3F2FD", 
+    backgroundColor: "#d1c7c9", 
     padding: 8, 
     borderRadius: 6 },
   btnIconoBorrar: { 
@@ -363,7 +371,7 @@ const styles = StyleSheet.create({
   // Modal
   modalOverlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "#00000080",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -387,14 +395,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   botonGuardar: {
-    backgroundColor: "#1ac414",
+    backgroundColor: "#93c491",
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 10,
   },
   botonCerrar: {
-    backgroundColor: "#C4142B",
+    backgroundColor: "#996d73",
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
@@ -432,7 +440,7 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   btnConfirmarEliminar: {
-    backgroundColor: '#C4142B',
+    backgroundColor: '#996d73',
     padding: 14,
     borderRadius: 10,
     alignItems: 'center',

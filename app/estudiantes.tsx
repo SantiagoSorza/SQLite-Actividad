@@ -1,18 +1,18 @@
+import { Link, useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
-  View,
+  Alert,
+  FlatList,
+  Modal,
+  Platform,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
   Text,
   TextInput,
-  FlatList,
-  StyleSheet,
-  Alert,
   TouchableOpacity,
-  SafeAreaView,
-  Platform,
-  StatusBar,
-  Modal,
+  View,
 } from "react-native";
-import { Link, useLocalSearchParams } from "expo-router";
 import { db } from "../database";
 
 type Estudiante = {
@@ -242,14 +242,14 @@ export default function EstudiantesScreen() {
                   style={styles.btnConfirmarEliminar}
                   onPress={ejecutarEliminacion}
                 >
-                  <Text style={styles.textoBotonBlanco}>Sí, eliminar</Text>
+                  <Text style={styles.textoBotonBlanco1}>Sí, eliminar</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity
                   style={styles.btnConfirmarCancelar}
                   onPress={() => setConfirmarVisible(false)}
                 >
-                  <Text style={styles.textoBotonGris}>No, cancelar</Text>
+                  <Text style={styles.textoBotonBlanco}>No, cancelar</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -263,7 +263,7 @@ export default function EstudiantesScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: "#e9e7e7",
+    backgroundColor: "#000000",
     paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   },
   container: { flex: 1, padding: 16 },
@@ -273,14 +273,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 20,
     borderBottomWidth: 1,
-    borderBottomColor: "#eee",
+    borderBottomColor: "#ffffff",
     paddingBottom: 10,
   },
   titleCentrado: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#222",
+    color: "#ffffff",
     textAlign: "center",
+    //fontFamily: "Century Gothic",
   },
 
   // Botones Superiores
@@ -295,32 +296,31 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 8,
     borderWidth: 2,
-    borderColor: "#C4142B",
-    backgroundColor: "#FFF",
+    borderColor: "#ffffff",
+    backgroundColor: "#C4142B",
   },
   botonCrear: {
-    backgroundColor: "#c49b14",
+    backgroundColor: "#fdfdfd",
+    borderColor: "#454242",
+    borderWidth: 2,
     paddingVertical: 10,
     paddingHorizontal: 15,
     borderRadius: 8,
     elevation: 2,
   },
+  textoBotonBlanco1: { 
+    color: "#ffffff", 
+    fontWeight: "bold" 
+  },
   textoBotonBlanco: { 
-    color: "#FFF", 
+    color: "#000000", 
     fontWeight: "bold" 
   },
   textoBotonRojoSm: { 
-    color: "#C4142B", 
+    color: "#ffffff", 
     fontWeight: "bold", 
     fontSize: 13 
   },
-  textoBotonRojo: {
-    color: "#C4142B",
-    fontWeight: "bold",
-    textAlign: "center",
-    marginTop: 15,
-  },
-
   // Buscador
   searchInput: {
     backgroundColor: "#FFF",
@@ -373,7 +373,7 @@ const styles = StyleSheet.create({
 
   // Botones 
   btnIconoEditar: { 
-    backgroundColor: "#E3F2FD", 
+    backgroundColor: "#d1c7c9", 
     padding: 10, 
     borderRadius: 6 
   },
@@ -387,7 +387,7 @@ const styles = StyleSheet.create({
   // Modal
  modalOverlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.5)",
+    backgroundColor: "#00000080",
     justifyContent: "center",
     alignItems: "center",
   },
@@ -411,14 +411,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   botonGuardar: {
-    backgroundColor: "#1ac414",
+    backgroundColor: "#93c491",
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
     marginTop: 10,
   },
   botonCerrar: {
-    backgroundColor: "#C4142B",
+    backgroundColor: "#996d73",
     padding: 12,
     borderRadius: 8,
     alignItems: "center",
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
   confirmTitle: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#222',
+    color: '#000000',
     marginBottom: 10,
     textAlign: 'center',
   },
@@ -456,7 +456,8 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   btnConfirmarEliminar: {
-    backgroundColor: '#C4142B',
+    backgroundColor: '#996d73',
+    color: '#000000',
     padding: 14,
     borderRadius: 10,
     alignItems: 'center',
